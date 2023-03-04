@@ -1,0 +1,7 @@
+<mat-nav-list role="list">
+   
+    <app-menu-item *ngFor="let item of navItems" [item]="item" (breadcrumdChange)="breadcrumdMenuChange($event)"></app-menu-item>
+  </mat-nav-list>
+ <!-- <app-menu-item *ngFor="let item of navItems" [item]="item"></app-menu-item> -->
+    <!-- <a mat-menu-item fxLayoutAlign="space-around center"  *ngFor="let item of navItems">{{item.displayName}}</a>
+    <mat-icon fontSet="fontIcons" fontIcon="fontIcon"></mat-icon> -->

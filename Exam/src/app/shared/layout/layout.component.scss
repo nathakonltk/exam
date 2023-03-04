@@ -1,0 +1,27 @@
+$background:rgb(64 64 64);
+.layout {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    .layout-header {
+        // background-color: #2b58a8;
+        //border-top: 5px solid #1495ce;
+        box-shadow: 0 3px 5px -1px rgba(0, 0, 0, .2), 0 6px 10px 0 rgba(0, 0, 0, .14), 0 1px 18px 0 rgba(0, 0, 0, .12);
+        z-index: 30;
+        padding: 4px 16px;
+       // color: white;
+        //height: 60px;
+    }
+    .layout-container{
+        background-color:$background;
+    }
+    .layout-content {
+        font-weight: 400;
+        width: calc(100% - 341px);
+        padding: 20px;
+    }
+}
