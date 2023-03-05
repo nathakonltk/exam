@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { map } from 'rxjs';
+import { HttpClient, HttpHeaders , HttpParams,HttpErrorResponse } from '@angular/common/http';
+import { map, Observable,tap,catchError,of,throwError  } from 'rxjs';
+import { Tambon,Province,Amphure,ZipCode} from './../_models/index';
 
 
 @Injectable({
@@ -10,16 +11,49 @@ export class ProvAmpTamService {
 
   constructor(
     private http: HttpClient,
-  ) { }
-  // getTambon(){
-  //   return this.http.get<any[]>("https://raw.githubusercontent.com/kongvut/thai-province-data/master/api_tambon.json").pipe(map((res: any) => {
-  //     return res;
-  //   }));
+  ) { 
+  }
+ 
+  // private handleError(error: HttpErrorResponse) {
+  //   if (error.status === 0) {
+  //     // A client-side or network error occurred. Handle it accordingly.
+  //     console.error('An error occurred:', error.error);
+  //   } else {
+  //     // The backend returned an unsuccessful response code.
+  //     // The response body may contain clues as to what went wrong.
+  //     console.error(
+  //       `Backend returned code ${error.status}, body was: `, error.error);
+  //   }
+  //   // Return an observable with a user-facing error message.
+  //   return throwError(() => new Error('Something bad happened; please try again later.'));
   // }
 
-  getTambon() {
-    return this.http.get(`https://raw.githubusercontent.com/kongvut/thai-province-data/master/api_tambon.json`).pipe(map(res => {
-      return res
+  
+  getProvince(): Observable<Province[]> {
+    return this.http.get<Province[]>("https://raw.githubusercontent.com/kongvut/thai-province-data/master/api_province.json")
+  }
+  getAmphure(province_id:number): Observable<Amphure[]> {
+    
+    // return this.http.get<Amphure[]>("https://raw.githubusercontent.com/kongvut/thai-province-data/master/api_amphure.json").pipe(map((res: any) => {
+    //   return res.find(res => x.id === id);
+    // }));
+    return this.http.get<Amphure[]>("https://raw.githubusercontent.com/kongvut/thai-province-data/master/api_amphure.json").pipe(map(res => {
+      let ret =res.filter(i => i.province_id==province_id);
+      return ret;
     }))
   }
+  getTambon(amphure_id:number): Observable<Tambon[]> {
+    return this.http.get<Tambon[]>("https://raw.githubusercontent.com/kongvut/thai-province-data/master/api_tambon.json").pipe(map(res => {
+      let ret =res.filter(i => i.amphure_id==amphure_id);
+      return ret;
+    }))
+  }
+  getZipCode(SUB_DISTRICT_CODE:string): Observable<ZipCode[]> {
+    return this.http.get<ZipCode[]>("https://raw.githubusercontent.com/Cerberus/Thailand-Address/master/zipcodes.json").pipe(map(res => {
+      let ret =res.filter(i => i.SUB_DISTRICT_CODE==SUB_DISTRICT_CODE);
+      return ret;
+    }))
+  }
+ 
 }
+
