@@ -1,34 +1,60 @@
 <form [formGroup]="form">
    
-    <mat-card fxFlex>
-       <mat-card-header>
+    <mat-card fxFlex>      
+
+       <!-- <mat-card-header>
             <mat-card-title>ข้อมูลสมาชิก</mat-card-title>
-        </mat-card-header>
+        </mat-card-header> -->
         <mat-card-content style="margin-top: 20px;">
+            <!-- <div fxLayout="row"    > -->
+                <!-- <div fxFlex="50"><h3>ข้อมูลสมาชิก</h3></div> -->
             
-           
-                <div class="row" fxLayout="row"  fxLayout.xs="column" fxLayoutGap="20px grid"  >
-                    <mat-form-field fxFlex="20%" >
+            <div fxLayout="row" fxLayoutAlign="end start" >
+                <mat-card class="example-card" fxFlex="150px">
+                    <img src="assets/_images/no-img.jpg" />
+                    <img mat-card-image  src='{{(avatar ? avatar : "_images/no-img.jpg")}}' style="padding: 5%;">
+                    <mat-card-content>
+                    </mat-card-content>
+                    <mat-card-actions>
+                        <div class="example-button-row" fxFlex="100%">
+                            <button mat-flat-button color="primary" fxFlex="100%" type="button" (click)="file.click()">อัพโหลดรูป</button>
+                            <input mat-raised-button #file type="file" accept="image/x-png,image/gif,image/jpeg" (change)="uploadImage($event)" fxHide>
+                            <!-- <button mat-fab extended color="primary" fxFlex="100%">  อัพโหลดรูป</button> -->
+                        </div>
+                        <div fxLayout="row" fxLayoutAlign="center center" >
+                            <!-- <button mat-raised-button type="button" (click)="file.click()"><i class="fas fa-cloud-upload-alt"></i> อัพโหลดรูป</button> -->
+                            
+                        </div>
+                    </mat-card-actions>
+                </mat-card>
+            </div>
+            <!-- </div> -->
+            <fieldset class="row"> 
+                <legend>ข้อมูลสมาชิก</legend>
+                <div class="row" fxLayout="row"  fxLayout.xs="column" fxLayoutGap="10px grid"  >
+                    <mat-form-field  fxFlex="33.33%" >
                         <mat-label>คำนำหน้าชื่อ</mat-label>
                         <mat-select formControlName="title_id"  placeholder="กรุณาเลือก" required>
                             <mat-option *ngFor="let i of titlename" [value]="i.title_id" >  {{i.title_name}} </mat-option>
                         </mat-select>
                         <mat-error *ngIf="form.controls['title_id'].hasError('required')">กรุณาเลือกคำนำหน้าชื่อ</mat-error>
                     </mat-form-field>
-                    <mat-form-field fxFlex="40%">
+                    <mat-form-field fxFlex="33.33%">
                         <mat-label>ชื่อ</mat-label>
                         <input matInput type="text" formControlName="first_name" maxlength="100" placeholder="กรุณาระบุข้อมูล" required>
                         <mat-error *ngIf="form.controls['first_name'].hasError('required')">กรุณาระบุชื่อ</mat-error>
                     </mat-form-field>
-                    <mat-form-field fxFlex="40%"> 
+                    <mat-form-field fxFlex="33.33%"> 
                         <mat-label>นามสกุล</mat-label>
                         <input matInput type="text" formControlName="last_name" maxlength="100" placeholder="กรุณาระบุข้อมูล" required>
                         <mat-error *ngIf="form.controls['last_name'].hasError('required')">กรุณาระบุนามสกุล</mat-error>
                     </mat-form-field>
                 </div>
 
+                
+
                 <div class="row" fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px grid">
-                    <mat-form-field appearance="fill" fxFlex="20%">
+                    <mat-form-field appearance="fill" fxFlex="33.33%">
                         <mat-label>วันเกิด</mat-label>
                         <input matInput [matDatepicker]="picker" (click)="picker.open()" formControlName="birth_date" (keydown)="false" required>
                         <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
@@ -36,12 +62,12 @@
                         <mat-datepicker #picker></mat-datepicker>
                         <mat-error *ngIf="form.controls['birth_date'].hasError('required')">กรุณาเลือกวันเกิด</mat-error>
                     </mat-form-field>
-                    <mat-form-field appearance="fill" fxFlex="20%"> 
+                    <mat-form-field appearance="fill" fxFlex="33.33%"> 
                         <mat-label>อายุ</mat-label>
                         <input matInput type="text" formControlName="age" maxlength="3"  readonly>
                         <span matSuffix>ปี</span>
                     </mat-form-field>
-                    <mat-form-field appearance="fill" fxFlex="20%"> 
+                    <mat-form-field  fxFlex="33.33%"> 
                         <mat-label>สัญชาติ</mat-label>
                         <input matInput type="text" formControlName="nationality" maxlength="80" placeholder="กรุณาระบุสัญชาติ" required>
                         <mat-error *ngIf="form.controls['nationality'].hasError('required')">กรุณาระบุสัญชาติ</mat-error>
@@ -108,6 +134,10 @@
                         </mat-form-field>
     
                     </div>
+                </fieldset>
+                
+                    
+
                 </fieldset>
                 
                 
