@@ -11,8 +11,7 @@
             
             <div fxLayout="row" fxLayoutAlign="end start" >
                 <mat-card class="example-card" fxFlex="150px">
-                    <img src="assets/_images/no-img.jpg" />
-                    <img mat-card-image  src='{{(avatar ? avatar : "_images/no-img.jpg")}}' style="padding: 5%;">
+                    <img mat-card-image  src='{{(avatar ? avatar : "assets/images/NoImg.jpg")}}' style="padding: 5%;">
                     <mat-card-content>
                     </mat-card-content>
                     <mat-card-actions>
@@ -56,7 +55,7 @@
                 <div class="row" fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px grid">
                     <mat-form-field appearance="fill" fxFlex="33.33%">
                         <mat-label>วันเกิด</mat-label>
-                        <input matInput [matDatepicker]="picker" (click)="picker.open()" formControlName="birth_date" (keydown)="false" required>
+                        <input matInput [matDatepicker]="picker" (click)="picker.open()" formControlName="birth_date" (dateChange)="CalAge(form.controls['birth_date'].value)" (keydown)="false" required>
                         <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
                         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-datepicker #picker></mat-datepicker>
@@ -64,7 +63,7 @@
                     </mat-form-field>
                     <mat-form-field appearance="fill" fxFlex="33.33%"> 
                         <mat-label>อายุ</mat-label>
-                        <input matInput type="text" formControlName="age" maxlength="3"  readonly>
+                        <input matInput type="text" formControlName="age" maxlength="3" value="{{showAge}}"  readonly>
                         <span matSuffix>ปี</span>
                     </mat-form-field>
                     <mat-form-field  fxFlex="33.33%"> 

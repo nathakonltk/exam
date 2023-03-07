@@ -1,20 +1,22 @@
 import { TitleName,MemberModel,Tambon,Province,Amphure,ZipCode,UploadFile } from './../../_models/index';
-import { Component, OnInit,Inject } from '@angular/core';
+import { Component, OnInit,Inject,Output,EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup ,FormControl, Validators,FormArray} from '@angular/forms';
 import { DateAdapter } from '@angular/material/core';
 import { ProvAmpTamService,UploadfileService } from '../../_services/index';
 // import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-//import { Images } from '../../_images/index';
 import { HttpClient } from '@angular/common/http';
-
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-mem-dialog',
   templateUrl: './mem-dialog.component.html',
-  styleUrls: ['./mem-dialog.component.scss']
+  styleUrls: ['./mem-dialog.component.scss'],
+  providers:[DatePipe]
 })
 
-export class MemDialogComponent {  
+export class MemDialogComponent { 
+  //@Output() dateInput(): EventEmitter;
+  DateNew = new Date(); 
   form: FormGroup;
   attachments: FormArray;
   avatar: string = "";
@@ -36,10 +38,12 @@ export class MemDialogComponent {
     private ProvAmpTamService: ProvAmpTamService,
     private http:HttpClient,
     private uploadFileService:UploadfileService,
+    private datePipe: DatePipe
     // private dialog: MatDialog,
     // @Inject(MAT_DIALOG_DATA) public data: any,
     // public dialogRef: MatDialogRef<MemberKeyinComponent>,
   ){
+    //this.DateNew = this.datePipe.transform(this.DateNew, 'yyyy-MM-dd');
     this.dateAdapter.setLocale('th-TH'); //dd/MM/yyyy
     this.form = this.fb.group({
       title_id: ['', [Validators.required]],
@@ -64,6 +68,15 @@ export class MemDialogComponent {
     this.form.markAllAsTouched();
     this.getProvince();
     //this.no_img=this.image?.noimgFile;
+  }
+  showAge!:number;
+  CalAge(birth_date:Date){
+
+    //const convertAge = new Date(this.dateSent);
+    const timeDiff = Math.abs(Date.now() - birth_date.getTime());
+    this.showAge = Math.floor((timeDiff / (1000 * 3600 * 24))/365);
+    //console.log("showAge:"+showAge);
+
   }
   createFile(item: UploadFile): FormGroup {
     return this.fb.group({
