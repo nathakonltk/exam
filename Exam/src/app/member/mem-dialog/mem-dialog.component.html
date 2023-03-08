@@ -127,7 +127,7 @@
     
                         <mat-form-field fxFlex="33.33%"> 
                             <mat-label>อีเมล</mat-label>
-                            <input matInput type="text" formControlName="email" maxlength="100" placeholder="กรุณาระบุเอีเมล" >
+                            <input matInput type="text" formControlName="email" maxlength="150" placeholder="กรุณาระบุเอีเมล" >
                             <mat-error *ngIf="form.controls['email'].hasError('required')" >กรุณาระบุอีเมล</mat-error>
                             <mat-error *ngIf="form.controls['email'].hasError('email')" >รูปแบบอีเมลไม่ถูกต้อง</mat-error>
                         </mat-form-field>

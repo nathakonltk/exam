@@ -18,7 +18,7 @@ export class MemDialogComponent {
   //@Output() dateInput(): EventEmitter;
   DateNew = new Date(); 
   form: FormGroup;
-  attachments: FormArray;
+  imgfile: FormArray;
   avatar: string = "";
   //image?:Images;
   //noimgFile=require("../../_images/no-img.jpg");
@@ -50,7 +50,6 @@ export class MemDialogComponent {
       first_name: ['', [Validators.required]],
       last_name: ['', [Validators.required]],
       birth_date: ['', [Validators.required]],
-      age:[''],
       nationality:['', [Validators.required]],
 
       address: ['', [Validators.required]],
@@ -60,9 +59,9 @@ export class MemDialogComponent {
       zip_code:['', [Validators.required]],
       tel: ['', [Validators.required]],
       email: ['', [Validators.required,Validators.email]],
-      attachments: this.fb.array([]),
+      imgfile: this.fb.array([]),
     });
-    this.attachments = this.form.get('attachments') as FormArray;
+    this.imgfile = this.form.get('imgfile') as FormArray;
   }
   ngOnInit(): void {
     this.form.markAllAsTouched();
@@ -94,7 +93,7 @@ export class MemDialogComponent {
   async uploadImage(event: any) {
     let uploaded = await this.uploadFileService.multiple(event.target.files);
     uploaded.forEach((item: UploadFile) => {
-      this.attachments.push(this.createFile(item));
+      this.imgfile.push(this.createFile(item));
       this.avatar = item.file;
     })
   }
