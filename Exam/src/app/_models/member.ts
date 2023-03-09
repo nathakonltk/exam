@@ -1,11 +1,16 @@
 export interface MemberModel {
-  mem_id: string;
-  title_name: string;
-  first_name: string;
-  last_name: string;
-  age: number;
-  occupation: string;
-  email: string;
+  memId: string;
+  titleId: string;
+  firstName: string;
+  lastName: string;
+  birthDate: string;
+  nationality: string;
+  address: string;
+  tamId: string;
+  ampId: string;
+  provId: string;
+  zipCode: string;
   tel: string;
-  token?: string;
+  email: string;
+  imgfile: string;
 }

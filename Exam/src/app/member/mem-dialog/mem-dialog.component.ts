@@ -2,7 +2,7 @@ import { TitleName,MemberModel,Tambon,Province,Amphure,ZipCode,UploadFile } from
 import { Component, OnInit,Inject,Output,EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup ,FormControl, Validators,FormArray} from '@angular/forms';
 import { DateAdapter } from '@angular/material/core';
-import { ProvAmpTamService,UploadfileService } from '../../_services/index';
+import { ProvAmpTamService,UploadfileService,MemberService } from '../../_services/index';
 // import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { HttpClient } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
@@ -20,6 +20,7 @@ export class MemDialogComponent {
   form: FormGroup;
   imgfile: FormArray;
   avatar: string = "";
+  showAge=0;
   //image?:Images;
   //noimgFile=require("../../_images/no-img.jpg");
   tambon:Tambon[]=[];
@@ -38,7 +39,8 @@ export class MemDialogComponent {
     private ProvAmpTamService: ProvAmpTamService,
     private http:HttpClient,
     private uploadFileService:UploadfileService,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private memberService:MemberService,
     // private dialog: MatDialog,
     // @Inject(MAT_DIALOG_DATA) public data: any,
     // public dialogRef: MatDialogRef<MemberKeyinComponent>,
@@ -50,6 +52,7 @@ export class MemDialogComponent {
       first_name: ['', [Validators.required]],
       last_name: ['', [Validators.required]],
       birth_date: ['', [Validators.required]],
+      age: ['', [Validators.required]],
       nationality:['', [Validators.required]],
 
       address: ['', [Validators.required]],
@@ -66,15 +69,21 @@ export class MemDialogComponent {
   ngOnInit(): void {
     this.form.markAllAsTouched();
     this.getProvince();
+    this.GetAll();
     //this.no_img=this.image?.noimgFile;
   }
-  showAge!:number;
+  GetAll(){    
+    this.memberService.GetAll().subscribe(res => {
+      console.log(res);
+    })
+  }
   CalAge(birth_date:Date){
 
-    //const convertAge = new Date(this.dateSent);
-    const timeDiff = Math.abs(Date.now() - birth_date.getTime());
-    this.showAge = Math.floor((timeDiff / (1000 * 3600 * 24))/365);
-    //console.log("showAge:"+showAge);
+    if(birth_date){
+      const timeDiff = Math.abs(Date.now() - birth_date.getTime());
+      this.showAge = Math.floor((timeDiff / (1000 * 3600 * 24))/365);
+      //console.log("showAge:"+showAge);
+    }
 
   }
   createFile(item: UploadFile): FormGroup {

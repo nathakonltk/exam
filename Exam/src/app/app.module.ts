@@ -12,6 +12,7 @@ import { MenuItemComponent } from './shared/menu-item/menu-item.component';
 import { BreadcrumbComponent } from './shared/breadcrumb/breadcrumb.component';
 import { HeaderComponent } from './shared/header/header.component';
 import { MemDialogComponent } from './member/mem-dialog/mem-dialog.component';
+import { MemberListComponent } from './member/member-list/member-list.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { MemDialogComponent } from './member/mem-dialog/mem-dialog.component';
     BreadcrumbComponent,
     HeaderComponent,
     MemDialogComponent,
+    MemberListComponent,
     
   ],
   imports: [
