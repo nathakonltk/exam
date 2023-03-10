@@ -28,15 +28,16 @@ export class ProvAmpTamService {
   //   return throwError(() => new Error('Something bad happened; please try again later.'));
   // }
 
-  
-  getProvince(): Observable<Province[]> {
-    return this.http.get<Province[]>("https://raw.githubusercontent.com/kongvut/thai-province-data/master/api_province.json")
+  //public _provinces:Province[]=this.getProvince();
+  getProvince(id?:number): any {
+    let ret =this.http.get<Province[]>("https://raw.githubusercontent.com/kongvut/thai-province-data/master/api_province.json").pipe(map(res => {
+      return ( id? res.find(i => i.id===id) : res);
+      
+    }))
+    return ret;
   }
   getAmphure(province_id:number): Observable<Amphure[]> {
     
-    // return this.http.get<Amphure[]>("https://raw.githubusercontent.com/kongvut/thai-province-data/master/api_amphure.json").pipe(map((res: any) => {
-    //   return res.find(res => x.id === id);
-    // }));
     return this.http.get<Amphure[]>("https://raw.githubusercontent.com/kongvut/thai-province-data/master/api_amphure.json").pipe(map(res => {
       let ret =res.filter(i => i.province_id==province_id);
       return ret;

@@ -80,43 +80,43 @@
                     <legend>ที่อยู่ที่ติดต่อได้</legend>
                     <div class="row" fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px grid">
                         <mat-form-field fxFlex="33.33%"> 
-                            <mat-label>ที่อยู่</mat-label>
-                            <input matInput type="text" formControlName="address" maxlength="200" placeholder="กรุณาระบุเอีเมล" >
-                            <mat-error *ngIf="form.controls['address'].hasError('required')" >กรุณาระบุอีเมล</mat-error>
+                            <mat-label>ที่อยู่/อาคาร/ซอย/ถนน</mat-label>
+                            <input matInput type="text" formControlName="address" maxlength="250"  >
+                            <mat-error *ngIf="form.controls['address'].hasError('required')" >กรุณาระบุที่อยู่/อาคาร/ซอย/ถนน</mat-error>
                         </mat-form-field>
                         <mat-form-field fxFlex="33.33%"> 
                             <mat-label>จังหวัด</mat-label>
-                            <mat-select formControlName="prov_id"  placeholder="กรุณาเลือกจังหวัด" (valueChange)="ProvChange($event)" required>
+                            <mat-select formControlName="prov_id"  (valueChange)="ProvChange($event)" required>
                                 <mat-option *ngFor="let i of province" [value]="i.id" >  {{i.name_th}} </mat-option>
                             </mat-select>
                             <mat-error *ngIf="form.controls['prov_id'].hasError('required')">กรุณาเลือกจังหวัด</mat-error>
                         </mat-form-field>
                         <mat-form-field fxFlex="33.33%"> 
-                            <mat-label>อำเภอ</mat-label>
-                            <mat-select formControlName="amp_id"  placeholder="กรุณาเลือกอำเภอ" (valueChange)="AmpChange($event)" required>
+                            <mat-label>อำเภอ/เขต</mat-label>
+                            <mat-select formControlName="amp_id" (valueChange)="AmpChange($event)" required>
                                 <mat-option *ngFor="let i of amphure" [value]="i.id" >  {{i.name_th}} </mat-option>
                             </mat-select>
-                            <mat-error *ngIf="form.controls['amp_id'].hasError('required')">กรุณาเลือกอำเภอ</mat-error>
+                            <mat-error *ngIf="form.controls['amp_id'].hasError('required')">กรุณาเลือกอำเภอ/เขต</mat-error>
                         </mat-form-field>    
                     </div>
 
                     <div class="row" fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px grid">
                         <mat-form-field fxFlex="33.33%"> 
-                            <mat-label>ตำบล</mat-label>
-                            <mat-select formControlName="tam_id"  placeholder="กรุณาเลือกตำบล" (valueChange)="TambonChange($event)" required>
+                            <mat-label>ตำบล/แขวง</mat-label>
+                            <mat-select formControlName="tam_id" (valueChange)="TambonChange($event)" required>
                                 <mat-option *ngFor="let i of tambon" [value]="i.id" >  {{i.name_th}} </mat-option>
                             </mat-select>
-                            <mat-error *ngIf="form.controls['tam_id'].hasError('required')">กรุณาเลือกตำบล</mat-error>
+                            <mat-error *ngIf="form.controls['tam_id'].hasError('required')">กรุณาเลือกตำบล/แขวง</mat-error>
                         </mat-form-field>
                         <mat-form-field fxFlex="33.33%"> 
                             <mat-label>รหัสไปรษณีย์</mat-label>
-                            <mat-select formControlName="zip_code"  placeholder="กรุณารหัสไปรษณีย์" required>
+                            <mat-select formControlName="zip_code" required>
                                 <mat-option *ngFor="let i of zip_code" [value]="i.ZIPCODE" >  {{i.ZIPCODE}} </mat-option>
                             </mat-select>
                             <mat-error *ngIf="form.controls['tam_id'].hasError('required')">กรุณารหัสไปรษณีย์</mat-error>
                         </mat-form-field>
                         <mat-form-field fxFlex="33.33%">
-                            <mat-label>โทรศัพท์(มือถือ)</mat-label>
+                            <mat-label>เบอร์โทรศัพท์(มือถือ)</mat-label>
                             <input matInput type="text" formControlName="tel" mask="000-000-0000" maxlength="15" placeholder="กรุณาระบุเบอร์โทรศัพท์" required>
                             <mat-error *ngIf="form.controls['tel'].hasError('required')" >กรุณาระบุเบอร์โทรศัพท์</mat-error>
                         </mat-form-field>
@@ -139,7 +139,7 @@
              </fieldset>
 
              <div class="row">
-                <app-member-list></app-member-list>
+                <app-member-list [titlename]="titlename" ></app-member-list>
              </div>
                 
                 

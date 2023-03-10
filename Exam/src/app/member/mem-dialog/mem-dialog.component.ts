@@ -36,7 +36,7 @@ export class MemDialogComponent {
   constructor(
     private dateAdapter: DateAdapter<Date>,
     private fb:FormBuilder,
-    private ProvAmpTamService: ProvAmpTamService,
+    private provAmpTamService: ProvAmpTamService,
     private http:HttpClient,
     private uploadFileService:UploadfileService,
     private datePipe: DatePipe,
@@ -69,6 +69,7 @@ export class MemDialogComponent {
   ngOnInit(): void {
     this.form.markAllAsTouched();
     this.getProvince();
+    //console.log('province::',this.province);
     this.GetAll();
     //this.no_img=this.image?.noimgFile;
   }
@@ -118,15 +119,14 @@ export class MemDialogComponent {
   TambonChange(SUB_DISTRICT_CODE:string){
     this.getZipCode(SUB_DISTRICT_CODE);
   }
-  getProvince(): void {
-    this.ProvAmpTamService.getProvince()
-    .subscribe(res => {
-      this.province = res;
-      // console.log('province',this.province);
+  getProvince() {
+    this.provAmpTamService.getProvince()
+    .subscribe((res: any) => {
+      this.province= res;
     });
   }
   getAmphure(province_id:number): void {
-    this.ProvAmpTamService.getAmphure(province_id)
+    this.provAmpTamService.getAmphure(province_id)
     .subscribe(res => {
       this.amphure=res
       //let selectedOpt =res.filter(i => i.province_id==id);
@@ -135,14 +135,14 @@ export class MemDialogComponent {
     });
   }
   getTambon(amphure_id:number): void {
-    this.ProvAmpTamService.getTambon(amphure_id)
+    this.provAmpTamService.getTambon(amphure_id)
     .subscribe(res => {
       this.tambon = res;
       // console.log('tambon',this.tambon);
     });
   }
   getZipCode(SUB_DISTRICT_CODE:string): void {
-    this.ProvAmpTamService.getZipCode(SUB_DISTRICT_CODE)
+    this.provAmpTamService.getZipCode(SUB_DISTRICT_CODE)
     .subscribe(res => {
       this.zip_code = res;
       // console.log('zip_code',this.zip_code);
