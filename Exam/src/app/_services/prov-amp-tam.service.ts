@@ -29,6 +29,7 @@ export class ProvAmpTamService {
   // }
 
   //public _provinces:Province[]=this.getProvince();
+  
   getProvince(id?:number): any {
     let ret =this.http.get<Province[]>("https://raw.githubusercontent.com/kongvut/thai-province-data/master/api_province.json").pipe(map(res => {
       return ( id? res.find(i => i.id===id) : res);
