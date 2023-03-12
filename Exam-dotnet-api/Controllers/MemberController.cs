@@ -26,7 +26,35 @@ public class MemberController : ControllerBase
     [HttpGet("GetAll")]
     public IActionResult GetAll()
     {
-      var member=this.con_db.Members.ToList();
+      var condb=this.con_db;
+      var member= ( from m in condb.Members 
+                      join p in condb.TblProvince on m.ProvId equals p.ProvId
+                      join a in condb.TblAmphur on m.AmpId equals a.AmpId
+                      join t in condb.TblTumbol on m.TamId equals t.TumId
+
+                      select new MemberJoin
+                      {
+                        MemId=m.MemId,
+                        TitleId=m.TitleId,
+                        FirstName=m.FirstName,
+                        LastName=m.LastName,
+                        BirthDate=m.BirthDate,
+                        Nationality=m.Nationality,
+                        Address=m.Address,
+                        TamId=m.TamId,
+                        TumName=t.TumName,
+                        AmpId=m.AmpId,
+                        AmpName=a.AmpName,
+                        ProvId=m.ProvId,
+                        ProvName=p.ProvName,
+                        ZipCode=m.ZipCode,
+                        Tel=m.Tel,
+                        Email=m.Email,
+                        Imgfile=m.Imgfile
+                      }
+
+                  ).ToList();
+      // var member=this.con_db.Members.ToList();
       return Ok(member);
     }
     [HttpGet("GetId/{id}")]
