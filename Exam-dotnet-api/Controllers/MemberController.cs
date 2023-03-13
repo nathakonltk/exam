@@ -31,6 +31,7 @@ public class MemberController : ControllerBase
                       join p in condb.TblProvince on m.ProvId equals p.ProvId
                       join a in condb.TblAmphur on m.AmpId equals a.AmpId
                       join t in condb.TblTumbol on m.TamId equals t.TumId
+                      orderby m.MemId
 
                       select new MemberJoin
                       {

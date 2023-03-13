@@ -13,6 +13,7 @@ import { BreadcrumbComponent } from './shared/breadcrumb/breadcrumb.component';
 import { HeaderComponent } from './shared/header/header.component';
 import { MemDialogComponent } from './member/mem-dialog/mem-dialog.component';
 import { MemberListComponent } from './member/member-list/member-list.component';
+import { NgxScrollTopModule } from 'ngx-scrolltop';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { MemberListComponent } from './member/member-list/member-list.component'
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    MaterialModule
+    MaterialModule,
+    NgxScrollTopModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

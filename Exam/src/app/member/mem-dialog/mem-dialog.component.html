@@ -5,7 +5,7 @@
        <!-- <mat-card-header>
             <mat-card-title>ข้อมูลสมาชิก</mat-card-title>
         </mat-card-header> -->
-        <mat-card-content style="margin-top: 20px;">
+        <mat-card-content style="margin-top: 0px;">
             <!-- <div fxLayout="row"    > -->
                 <!-- <div fxFlex="50"><h3>ข้อมูลสมาชิก</h3></div> -->
             
@@ -34,7 +34,7 @@
                     <mat-form-field  fxFlex="33.33%" >
                         <mat-label>คำนำหน้าชื่อ</mat-label>
                         <mat-select formControlName="title_id"  placeholder="กรุณาเลือก" required>
-                            <mat-option *ngFor="let i of titlename" [value]="i.title_id" >  {{i.title_name}} </mat-option>
+                            <mat-option *ngFor="let i of titlename" [value]="i" >  {{i.valueOf}} </mat-option>
                         </mat-select>
                         <mat-error *ngIf="form.controls['title_id'].hasError('required')">กรุณาเลือกคำนำหน้าชื่อ</mat-error>
                     </mat-form-field>
@@ -87,14 +87,14 @@
                         <mat-form-field fxFlex="33.33%"> 
                             <mat-label>จังหวัด</mat-label>
                             <mat-select formControlName="prov_id"  (valueChange)="ProvChange($event)" required>
-                                <mat-option *ngFor="let i of province" [value]="i.id" >  {{i.name_th}} </mat-option>
+                                <mat-option *ngFor="let i of province" [value]="i.provId" >  {{i.provName}} </mat-option>
                             </mat-select>
                             <mat-error *ngIf="form.controls['prov_id'].hasError('required')">กรุณาเลือกจังหวัด</mat-error>
                         </mat-form-field>
                         <mat-form-field fxFlex="33.33%"> 
                             <mat-label>อำเภอ/เขต</mat-label>
                             <mat-select formControlName="amp_id" (valueChange)="AmpChange($event)" required>
-                                <mat-option *ngFor="let i of amphure" [value]="i.id" >  {{i.name_th}} </mat-option>
+                                <mat-option *ngFor="let i of amphure" [value]="i.ampId" >  {{i.ampName}} </mat-option>
                             </mat-select>
                             <mat-error *ngIf="form.controls['amp_id'].hasError('required')">กรุณาเลือกอำเภอ/เขต</mat-error>
                         </mat-form-field>    
@@ -104,14 +104,14 @@
                         <mat-form-field fxFlex="33.33%"> 
                             <mat-label>ตำบล/แขวง</mat-label>
                             <mat-select formControlName="tam_id" (valueChange)="TambonChange($event)" required>
-                                <mat-option *ngFor="let i of tambon" [value]="i.id" >  {{i.name_th}} </mat-option>
+                                <mat-option *ngFor="let i of tambon" [value]="i.tumId" >  {{i.tumName}} </mat-option>
                             </mat-select>
                             <mat-error *ngIf="form.controls['tam_id'].hasError('required')">กรุณาเลือกตำบล/แขวง</mat-error>
                         </mat-form-field>
                         <mat-form-field fxFlex="33.33%"> 
                             <mat-label>รหัสไปรษณีย์</mat-label>
                             <mat-select formControlName="zip_code" required>
-                                <mat-option *ngFor="let i of zip_code" [value]="i.ZIPCODE" >  {{i.ZIPCODE}} </mat-option>
+                                <mat-option *ngFor="let i of zip_code" [value]="i.zipCode" >  {{i.zipCode}} </mat-option>
                             </mat-select>
                             <mat-error *ngIf="form.controls['tam_id'].hasError('required')">กรุณารหัสไปรษณีย์</mat-error>
                         </mat-form-field>
@@ -138,9 +138,7 @@
 
              </fieldset>
 
-             <div class="row">
-                <app-member-list [titlename]="titlename" ></app-member-list>
-             </div>
+             
                 
                 
                 
@@ -148,5 +146,15 @@
             
             
         </mat-card-content>
+        <mat-card-actions align="end" >
+            <div class="row" fxLayout="row" fxLayout.xs="column" fxFlex="10%">
+                <button mat-raised-button color="primary" ><mat-icon>save</mat-icon>บันทึก</button>
+            </div>
+        </mat-card-actions>
       </mat-card>
+
+      
 </form>
+<div class="row">
+    <app-member-list [titlename]="titlename" ></app-member-list>
+ </div>

@@ -30,31 +30,34 @@ export class ProvAmpTamService {
 
   //public _provinces:Province[]=this.getProvince();
   
-  getProvince(id?:number): any {
-    let ret =this.http.get<Province[]>("https://raw.githubusercontent.com/kongvut/thai-province-data/master/api_province.json").pipe(map(res => {
-      return ( id? res.find(i => i.id===id) : res);
-      
-    }))
-    return ret;
+  ProvGetAll(): Observable<Province[]> {
+    return this.http.get<Province[]>("http://localhost:5084/PADZ/Prov/GetAll")
   }
-  getAmphure(province_id:number): Observable<Amphure[]> {
+  ProvGetId(id:string): Observable<Province[]> {
+    return this.http.get<Province[]>("http://localhost:5084/PADZ/ProvGetId/"+id)
+  }
+
+
+  AmpGetProvId(ProvId:string): Observable<Amphure[]> {
     
-    return this.http.get<Amphure[]>("https://raw.githubusercontent.com/kongvut/thai-province-data/master/api_amphure.json").pipe(map(res => {
-      let ret =res.filter(i => i.province_id==province_id);
-      return ret;
-    }))
+    return this.http.get<Amphure[]>("http://localhost:5084/PADZ/AmpGetProvId/"+ProvId)
   }
-  getTambon(amphure_id:number): Observable<Tambon[]> {
-    return this.http.get<Tambon[]>("https://raw.githubusercontent.com/kongvut/thai-province-data/master/api_tambon.json").pipe(map(res => {
-      let ret =res.filter(i => i.amphure_id==amphure_id);
-      return ret;
-    }))
+  AmpGetAmpId(AmpId:string): Observable<Amphure[]> {
+    
+    return this.http.get<Amphure[]>("http://localhost:5084/PADZ/AmpGetAmpId/"+AmpId)
   }
-  getZipCode(SUB_DISTRICT_CODE:string): Observable<ZipCode[]> {
-    return this.http.get<ZipCode[]>("https://raw.githubusercontent.com/Cerberus/Thailand-Address/master/zipcodes.json").pipe(map(res => {
-      let ret =res.filter(i => i.SUB_DISTRICT_CODE==SUB_DISTRICT_CODE);
-      return ret;
-    }))
+
+
+  TumbGetAmpId(AmpId:string): Observable<Tambon[]> {
+    return this.http.get<Tambon[]>("http://localhost:5084/PADZ/TumbGetAmpId/"+AmpId)
+  }
+  TumbGetTumId(TumId:string): Observable<Tambon[]> {
+    return this.http.get<Tambon[]>("http://localhost:5084/PADZ/TumbGetTumId/"+TumId)
+  }
+
+
+  ZipCodeGetTumId(TumId:string): Observable<ZipCode[]> {
+    return this.http.get<ZipCode[]>("http://localhost:5084/PADZ/ZipCodeGetTumId/"+TumId)
   }
  
 }

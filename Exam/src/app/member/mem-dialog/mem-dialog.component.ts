@@ -28,11 +28,7 @@ export class MemDialogComponent {
   province:Province[]=[];
   zip_code:ZipCode[]=[];
 
-  titlename:TitleName[]=[
-    {title_id:'01',title_name:'นาย'},
-    {title_id:'02',title_name:'นาง'},
-    {title_id:'03',title_name:'นางสาว'}
-  ];
+  titlename=['นาย','นาง','นางสาว'];
   constructor(
     private dateAdapter: DateAdapter<Date>,
     private fb:FormBuilder,
@@ -69,9 +65,7 @@ export class MemDialogComponent {
   ngOnInit(): void {
     this.form.markAllAsTouched();
     this.getProvince();
-    //console.log('province::',this.province);
     this.GetAll();
-    //this.no_img=this.image?.noimgFile;
   }
   GetAll(){    
     this.memberService.GetAll().subscribe(res => {
@@ -107,42 +101,39 @@ export class MemDialogComponent {
       this.avatar = item.file;
     })
   }
-  ProvChange(province_id:number){
+  ProvChange(province_id:string){
     //console.log(province_id);
     this.getAmphure(province_id);
   }
-  AmpChange(amphure_id:number){
+  AmpChange(amphure_id:string){
     //console.log(555);
     //console.log(amphure_id);
     this.getTambon(amphure_id);
   }
-  TambonChange(SUB_DISTRICT_CODE:string){
-    this.getZipCode(SUB_DISTRICT_CODE);
+  TambonChange(TumId:string){
+    this.getZipCode(TumId);
   }
   getProvince() {
-    this.provAmpTamService.getProvince()
+    this.provAmpTamService.ProvGetAll()
     .subscribe((res: any) => {
       this.province= res;
     });
   }
-  getAmphure(province_id:number): void {
-    this.provAmpTamService.getAmphure(province_id)
+  getAmphure(province_id:string): void {
+    this.provAmpTamService.AmpGetProvId(province_id)
     .subscribe(res => {
       this.amphure=res
-      //let selectedOpt =res.filter(i => i.province_id==id);
-      //this.amphure.find(i => i.province_id==id);
-      // console.log('amphure',this.amphure);
     });
   }
-  getTambon(amphure_id:number): void {
-    this.provAmpTamService.getTambon(amphure_id)
+  getTambon(amphure_id:string): void {
+    this.provAmpTamService.TumbGetAmpId(amphure_id)
     .subscribe(res => {
       this.tambon = res;
       // console.log('tambon',this.tambon);
     });
   }
-  getZipCode(SUB_DISTRICT_CODE:string): void {
-    this.provAmpTamService.getZipCode(SUB_DISTRICT_CODE)
+  getZipCode(TumId:string): void {
+    this.provAmpTamService.ZipCodeGetTumId(TumId)
     .subscribe(res => {
       this.zip_code = res;
       // console.log('zip_code',this.zip_code);
