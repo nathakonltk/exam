@@ -52,7 +52,7 @@
 
     <ng-container matColumnDef="delete">
       <th mat-header-cell *matHeaderCellDef> ลบ </th>
-      <td mat-cell *matCellDef="let element"> <button mat-raised-button color="warn" (click)="DeleteRow(element.memId)"><mat-icon>delete_forever</mat-icon>ลบ</button> </td>
+      <td mat-cell *matCellDef="let element"> <button mat-raised-button color="warn" (click)="DeleteRow(element)"><mat-icon>delete_forever</mat-icon>ลบ</button> </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

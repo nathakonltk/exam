@@ -14,6 +14,7 @@ import { HeaderComponent } from './shared/header/header.component';
 import { MemDialogComponent } from './member/mem-dialog/mem-dialog.component';
 import { MemberListComponent } from './member/member-list/member-list.component';
 import { NgxScrollTopModule } from 'ngx-scrolltop';
+import { LoadingDialogComponent } from './shared/loading-dialog/loading-dialog.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { NgxScrollTopModule } from 'ngx-scrolltop';
     HeaderComponent,
     MemDialogComponent,
     MemberListComponent,
+    LoadingDialogComponent,
     
   ],
   imports: [

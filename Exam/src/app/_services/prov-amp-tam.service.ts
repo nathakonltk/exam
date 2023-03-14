@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders , HttpParams,HttpErrorResponse } from '@angular/common/http';
 import { map, Observable,tap,catchError,of,throwError  } from 'rxjs';
 import { Tambon,Province,Amphure,ZipCode} from './../_models/index';
-
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -31,33 +31,33 @@ export class ProvAmpTamService {
   //public _provinces:Province[]=this.getProvince();
   
   ProvGetAll(): Observable<Province[]> {
-    return this.http.get<Province[]>("http://localhost:5084/PADZ/Prov/GetAll")
+    return this.http.get<Province[]>(`${environment.apiUrl}/PADZ/Prov/GetAll`)
   }
   ProvGetId(id:string): Observable<Province[]> {
-    return this.http.get<Province[]>("http://localhost:5084/PADZ/ProvGetId/"+id)
+    return this.http.get<Province[]>(`${environment.apiUrl}/PADZ/ProvGetId/`+id)
   }
 
 
   AmpGetProvId(ProvId:string): Observable<Amphure[]> {
-    
-    return this.http.get<Amphure[]>("http://localhost:5084/PADZ/AmpGetProvId/"+ProvId)
+    console.log("AmpGetProvId:",`${environment.apiUrl}/PADZ/AmpGetProvId/`+ProvId);
+    return this.http.get<Amphure[]>(`${environment.apiUrl}/PADZ/AmpGetProvId/`+ProvId);
   }
   AmpGetAmpId(AmpId:string): Observable<Amphure[]> {
     
-    return this.http.get<Amphure[]>("http://localhost:5084/PADZ/AmpGetAmpId/"+AmpId)
+    return this.http.get<Amphure[]>(`${environment.apiUrl}/PADZ/AmpGetAmpId/`+AmpId)
   }
 
 
   TumbGetAmpId(AmpId:string): Observable<Tambon[]> {
-    return this.http.get<Tambon[]>("http://localhost:5084/PADZ/TumbGetAmpId/"+AmpId)
+    return this.http.get<Tambon[]>(`${environment.apiUrl}/PADZ/TumbGetAmpId/`+AmpId)
   }
   TumbGetTumId(TumId:string): Observable<Tambon[]> {
-    return this.http.get<Tambon[]>("http://localhost:5084/PADZ/TumbGetTumId/"+TumId)
+    return this.http.get<Tambon[]>(`${environment.apiUrl}/PADZ/TumbGetTumId/`+TumId)
   }
 
 
   ZipCodeGetTumId(TumId:string): Observable<ZipCode[]> {
-    return this.http.get<ZipCode[]>("http://localhost:5084/PADZ/ZipCodeGetTumId/"+TumId)
+    return this.http.get<ZipCode[]>(`${environment.apiUrl}/PADZ/ZipCodeGetTumId/`+TumId)
   }
  
 }

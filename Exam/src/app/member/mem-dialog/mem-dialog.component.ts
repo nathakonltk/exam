@@ -3,9 +3,12 @@ import { Component, OnInit,Inject,Output,EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup ,FormControl, Validators,FormArray} from '@angular/forms';
 import { DateAdapter } from '@angular/material/core';
 import { ProvAmpTamService,UploadfileService,MemberService } from '../../_services/index';
-// import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { LoadingDialogComponent } from '../../shared/loading-dialog/loading-dialog.component';
 import { HttpClient } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
+import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-mem-dialog',
@@ -21,8 +24,6 @@ export class MemDialogComponent {
   imgfile: FormArray;
   avatar: string = "";
   showAge=0;
-  //image?:Images;
-  //noimgFile=require("../../_images/no-img.jpg");
   tambon:Tambon[]=[];
   amphure:Amphure[]=[];
   province:Province[]=[];
@@ -37,18 +38,19 @@ export class MemDialogComponent {
     private uploadFileService:UploadfileService,
     private datePipe: DatePipe,
     private memberService:MemberService,
-    // private dialog: MatDialog,
+    private dialog: MatDialog,
     // @Inject(MAT_DIALOG_DATA) public data: any,
-    // public dialogRef: MatDialogRef<MemberKeyinComponent>,
+    // public dialogRef: MatDialogRef<MemDialogComponent>,
   ){
     //this.DateNew = this.datePipe.transform(this.DateNew, 'yyyy-MM-dd');
     this.dateAdapter.setLocale('th-TH'); //dd/MM/yyyy
     this.form = this.fb.group({
+      mem_id: [''],
       title_id: ['', [Validators.required]],
       first_name: ['', [Validators.required]],
       last_name: ['', [Validators.required]],
       birth_date: ['', [Validators.required]],
-      age: ['', [Validators.required]],
+      age: ['0'],
       nationality:['', [Validators.required]],
 
       address: ['', [Validators.required]],
@@ -62,7 +64,80 @@ export class MemDialogComponent {
     });
     this.imgfile = this.form.get('imgfile') as FormArray;
   }
-  ngOnInit(): void {
+  save(data:any){
+    
+
+    let req = {
+      mem_id:data.mem_id,
+      title_id: data.title_id,
+      last_name: data.last_name,      
+      birth_date: data.birth_date,
+      nationality: data.nationality,
+
+      address: data.address,
+      tam_id: data.tam_id,
+      amp_id: data.amp_id,
+      prov_id: data.prov_id,
+      zip_code: data.zip_code,
+      tel: data.tel,
+      email: data.email,
+      imgfile: data.imgfile
+
+    }
+    console.log(req);
+    if (!this.form.valid){
+      Swal.fire({
+        title: 'กรุณากรอกข้อมูลในช่องสีแดง',
+        icon: 'warning',
+        showCancelButton: false,
+        confirmButtonColor: '#4e88be',
+        confirmButtonText: 'รับทราบ',
+      }).then(()=> {
+        Swal.close();
+      })
+        
+      return;
+    }
+    Swal.fire({
+      title: 'คุณยืนยันการบันทึกข้อมูล ' + this.titlename[data.title_id]+ data.first_name + ' ' + data.last_name + ' ?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#4e88be',
+      confirmButtonText: 'ยืนยัน',
+      cancelButtonText: 'ยกเลิก'
+    }).then((result) => {
+      if (result.value) {
+
+        let dialogLoadingSave = this.dialog.open(LoadingDialogComponent, {
+          disableClose: true,
+          data: {
+            title: "กำลังบันทึกข้อมูล กรุณารอ....."
+          }
+        });
+        this.memberService.Insert(req).subscribe((res: any) => {
+          if (res && res.status == true) {
+            Swal.fire({
+              icon: 'success',
+              title: 'บันทึกข้อมูลสำเร็จ',
+              showConfirmButton: false,
+              allowOutsideClick: false,
+              timer: 3000
+            }).then(() => {
+              Swal.close();
+            })
+          } else {
+            Swal.fire({
+              icon: 'error',
+              title: 'ข้อมูลผิดพลาด',
+              text: res.message,
+              confirmButtonText: 'ปิดหน้าจอ',
+            })
+          }
+        })
+      }
+    })
+  }
+  ngOnInit() {
     this.form.markAllAsTouched();
     this.getProvince();
     this.GetAll();
@@ -72,15 +147,18 @@ export class MemDialogComponent {
       console.log(res);
     })
   }
-  CalAge(birth_date:Date){
+  CalAge(birth_date?:Date){
 
-    if(birth_date){
+    if(!birth_date){
+      birth_date = new Date();
+    }
       const timeDiff = Math.abs(Date.now() - birth_date.getTime());
       this.showAge = Math.floor((timeDiff / (1000 * 3600 * 24))/365);
-      //console.log("showAge:"+showAge);
-    }
+      console.log("showAge:"+this.showAge);
 
   }
+  
+  
   createFile(item: UploadFile): FormGroup {
     return this.fb.group({
       id: [''],
@@ -121,15 +199,15 @@ export class MemDialogComponent {
   }
   getAmphure(province_id:string): void {
     this.provAmpTamService.AmpGetProvId(province_id)
-    .subscribe(res => {
+    .subscribe((res: any) => {
       this.amphure=res
     });
   }
   getTambon(amphure_id:string): void {
     this.provAmpTamService.TumbGetAmpId(amphure_id)
-    .subscribe(res => {
+    .subscribe((res: any) => {
       this.tambon = res;
-      // console.log('tambon',this.tambon);
+      console.log('tambon',this.tambon);
     });
   }
   getZipCode(TumId:string): void {

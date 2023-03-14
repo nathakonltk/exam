@@ -42,13 +42,13 @@ public class PADZController : ControllerBase
     [HttpGet("AmpGetProvId/{ProvId}")]
     public IActionResult AmpGetProvId( string ProvId)
     {
-      var amp=this.con_db.TblAmphur.FirstOrDefault(i=>i.ProvId==ProvId);
+      var amp=this.con_db.TblAmphur.Where(i=>i.ProvId==ProvId);
       return Ok(amp);
     }
     [HttpGet("AmpGetAmpId/{AmpId}")]
     public IActionResult AmpGetAmpId( string AmpId)
     {
-      var amp=this.con_db.TblAmphur.FirstOrDefault(i=>i.AmpId==AmpId);
+      var amp=this.con_db.TblAmphur.Where(i=>i.AmpId==AmpId);
       return Ok(amp);
     }
 
@@ -56,13 +56,13 @@ public class PADZController : ControllerBase
     [HttpGet("TumbGetAmpId/{AmpId}")]
     public IActionResult TumbGetAmpId( string AmpId)
     {
-      var tumb=this.con_db.TblTumbol.FirstOrDefault(i=>i.AmpId==AmpId);
+      var tumb=this.con_db.TblTumbol.Where(i=>i.AmpId==AmpId);
       return Ok(tumb);
     }
     [HttpGet("TumbGetTumId/{TumId}")]
     public IActionResult TumbGetTumId( string TumId)
     {
-      var tumb=this.con_db.TblTumbol.FirstOrDefault(i=>i.TumId==TumId);
+      var tumb=this.con_db.TblTumbol.Where(i=>i.TumId==TumId);
       return Ok(tumb);
     }
 
@@ -70,7 +70,7 @@ public class PADZController : ControllerBase
     [HttpGet("ZipCodeGetTumId/{TumId}")]
     public IActionResult ZipCodeGetTumId( string TumId)
     {
-      var tumb=this.con_db.TblZipCode.FirstOrDefault(i=>i.TumId==TumId);
+      var tumb=this.con_db.TblZipCode.Where(i=>i.TumId==TumId);
       return Ok(tumb);
     }
 }
