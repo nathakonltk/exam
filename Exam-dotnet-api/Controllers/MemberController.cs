@@ -25,7 +25,7 @@ public class MemberController : ControllerBase
         var member= ( from m in condb.Members 
                         join p in condb.TblProvince on m.ProvId equals p.ProvId
                         join a in condb.TblAmphur on m.AmpId equals a.AmpId
-                        join t in condb.TblTumbol on m.TamId equals t.TumId
+                        join t in condb.TblTumbol on m.TumId equals t.TumId
                         orderby m.MemId
 
                         select new MemberJoin
@@ -37,7 +37,7 @@ public class MemberController : ControllerBase
                           BirthDate=m.BirthDate,
                           Nationality=m.Nationality,
                           Address=m.Address,
-                          TamId=m.TamId,
+                          TumId=m.TumId,
                           TumName=t.TumName,
                           AmpId=m.AmpId,
                           AmpName=a.AmpName,
@@ -119,9 +119,9 @@ public class MemberController : ControllerBase
           res.FirstName=member.FirstName;
           res.LastName=member.LastName;
           res.Nationality=member.Nationality;
-          res.BirthDate=member.BirthDate;
+          res.BirthDate=Convert.ToDateTime(member.BirthDate);
           res.Address=member.Address;
-          res.TamId=member.TamId;
+          res.TumId=member.TumId;
           res.AmpId=member.AmpId;
           res.ProvId=member.ProvId;
           res.ZipCode=member.ZipCode;
@@ -130,7 +130,7 @@ public class MemberController : ControllerBase
           res.Imgfile=member.Imgfile;
         
         }else{
-          this.con_db.Members.Add(member);
+          //this.con_db.Members.Add(member);
           
         }
         this.con_db.SaveChanges();

@@ -11,7 +11,7 @@ export interface Amphure {
   ampId: string;
   ampName: string;
 }
-export interface Tambon {
+export interface Tumbon {
   ampId: string;
   tumId: string;
   tumName: string;

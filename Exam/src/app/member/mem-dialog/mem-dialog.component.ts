@@ -1,13 +1,14 @@
-import { TitleName,MemberModel,Tambon,Province,Amphure,ZipCode,UploadFile } from './../../_models/index';
+import { TitleName,MemberModel,MemberJoin,Tumbon,Province,Amphure,ZipCode,UploadFile } from './../../_models/index';
 import { Component, OnInit,Inject,Output,EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup ,FormControl, Validators,FormArray} from '@angular/forms';
 import { DateAdapter } from '@angular/material/core';
-import { ProvAmpTamService,UploadfileService,MemberService } from '../../_services/index';
+import { ProvAmpTumService,UploadfileService,MemberService } from '../../_services/index';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { LoadingDialogComponent } from '../../shared/loading-dialog/loading-dialog.component';
 import { HttpClient } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import Swal from 'sweetalert2';
+import * as moment from 'moment';
 
 
 @Component({
@@ -24,7 +25,7 @@ export class MemDialogComponent {
   imgfile: FormArray;
   avatar: string = "";
   showAge=0;
-  tambon:Tambon[]=[];
+  tumbon:Tumbon[]=[];
   amphure:Amphure[]=[];
   province:Province[]=[];
   zip_code:ZipCode[]=[];
@@ -33,7 +34,7 @@ export class MemDialogComponent {
   constructor(
     private dateAdapter: DateAdapter<Date>,
     private fb:FormBuilder,
-    private provAmpTamService: ProvAmpTamService,
+    private provAmpTumService: ProvAmpTumService,
     private http:HttpClient,
     private uploadFileService:UploadfileService,
     private datePipe: DatePipe,
@@ -54,7 +55,7 @@ export class MemDialogComponent {
       nationality:['', [Validators.required]],
 
       address: ['', [Validators.required]],
-      tam_id: ['', [Validators.required]],
+      tum_id: ['', [Validators.required]],
       amp_id: ['', [Validators.required]],
       prov_id: ['', [Validators.required]],
       zip_code:['', [Validators.required]],
@@ -64,33 +65,56 @@ export class MemDialogComponent {
     });
     this.imgfile = this.form.get('imgfile') as FormArray;
   }
+  EditData(data:any){
+    console.log("data:"+data.titleId+":titleId");
+    this.form.get('mem_id')?.setValue(data.memId);
+    this.form.get('title_id')?.setValue(Number(data.titleId));
+    this.form.get('first_name')?.setValue(data.firstName);
+    this.form.get('last_name')?.setValue(data.lastName);
+    this.form.get('birth_date')?.setValue(data.birthDate);
+    this.form.get('nationality')?.setValue(data.nationality);
+    this.form.get('address')?.setValue(data.address);
+    // this.form.get('tum_id')?.setValue(data.tumId);
+    // this.form.get('amp_id')?.setValue(data.ampId);
+    this.form.get('prov_id')?.setValue(data.provId);
+    this.ProvChange(data.provId,data.ampId);
+    this.AmpChange(data.ampId,data.tumId);
+    this.TumbonChange(data.tumId,data.zipCode);
+    this.form.get('tel')?.setValue(data.tel);
+    this.form.get('email')?.setValue(data.email);
+    this.form.get('imgfile')?.setValue(data.imgfile);
+    let birthDate = new Date(data.birthDate);
+    this.CalAge(birthDate);
+  }
   save(data:any){
     
-
+    
     let req = {
-      mem_id:data.mem_id,
-      title_id: data.title_id,
-      last_name: data.last_name,      
-      birth_date: data.birth_date,
-      nationality: data.nationality,
+      MemId:data.mem_id.value,
+      TitleId: data.title_id.value,
+      FirstName: data.first_name.value,  
+      LastName: data.last_name.value,      
+      BirthDate: moment(data.first_name.value).format('YYYY-MM-DD'),
+      Nationality: data.nationality.value,
 
-      address: data.address,
-      tam_id: data.tam_id,
-      amp_id: data.amp_id,
-      prov_id: data.prov_id,
-      zip_code: data.zip_code,
-      tel: data.tel,
-      email: data.email,
-      imgfile: data.imgfile
+      Address: data.address.value,
+      TumId: data.tum_id.value,
+      AmpId: data.amp_id.value,
+      ProvId: data.prov_id.value,
+      ZipCode: data.zip_code.value,
+      Tel: data.tel.value,
+      Email: data.email.value,
+      Imgfile: data.imgfile.value
 
     }
+    console.log("title_id:",req.BirthDate);
     console.log(req);
     if (!this.form.valid){
       Swal.fire({
         title: 'กรุณากรอกข้อมูลในช่องสีแดง',
         icon: 'warning',
         showCancelButton: false,
-        confirmButtonColor: '#4e88be',
+        confirmButtonColor: '#7b1fa2',
         confirmButtonText: 'รับทราบ',
       }).then(()=> {
         Swal.close();
@@ -99,10 +123,10 @@ export class MemDialogComponent {
       return;
     }
     Swal.fire({
-      title: 'คุณยืนยันการบันทึกข้อมูล ' + this.titlename[data.title_id]+ data.first_name + ' ' + data.last_name + ' ?',
+      title: 'คุณยืนยันการบันทึกข้อมูล ' + this.titlename[req.TitleId]+ req.FirstName + ' ' + req.FirstName + ' ?',
       icon: 'question',
       showCancelButton: true,
-      confirmButtonColor: '#4e88be',
+      confirmButtonColor: '#7b1fa2',
       confirmButtonText: 'ยืนยัน',
       cancelButtonText: 'ยกเลิก'
     }).then((result) => {
@@ -134,6 +158,7 @@ export class MemDialogComponent {
             })
           }
         })
+        dialogLoadingSave.close();
       }
     })
   }
@@ -179,39 +204,39 @@ export class MemDialogComponent {
       this.avatar = item.file;
     })
   }
-  ProvChange(province_id:string){
-    //console.log(province_id);
+  ProvChange(province_id:string,val?:string){
+    console.log(province_id);
     this.getAmphure(province_id);
+    this.form.get('amp_id')?.setValue(val);
   }
-  AmpChange(amphure_id:string){
-    //console.log(555);
-    //console.log(amphure_id);
-    this.getTambon(amphure_id);
+  AmpChange(amphure_id:string,val?:string){
+    this.getTumbon(amphure_id);
+    this.form.get('tum_id')?.setValue(val);
   }
-  TambonChange(TumId:string){
+  TumbonChange(TumId:string,val?:string){
     this.getZipCode(TumId);
+    this.form.get('zip_code')?.setValue(val);
   }
   getProvince() {
-    this.provAmpTamService.ProvGetAll()
+    this.provAmpTumService.ProvGetAll()
     .subscribe((res: any) => {
       this.province= res;
     });
   }
   getAmphure(province_id:string): void {
-    this.provAmpTamService.AmpGetProvId(province_id)
+    this.provAmpTumService.AmpGetProvId(province_id)
     .subscribe((res: any) => {
       this.amphure=res
     });
   }
-  getTambon(amphure_id:string): void {
-    this.provAmpTamService.TumbGetAmpId(amphure_id)
+  getTumbon(amphure_id:string): void {
+    this.provAmpTumService.TumbGetAmpId(amphure_id)
     .subscribe((res: any) => {
-      this.tambon = res;
-      console.log('tambon',this.tambon);
+      this.tumbon = res;
     });
   }
   getZipCode(TumId:string): void {
-    this.provAmpTamService.ZipCodeGetTumId(TumId)
+    this.provAmpTumService.ZipCodeGetTumId(TumId)
     .subscribe(res => {
       this.zip_code = res;
       // console.log('zip_code',this.zip_code);

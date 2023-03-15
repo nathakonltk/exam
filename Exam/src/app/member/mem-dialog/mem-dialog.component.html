@@ -57,7 +57,7 @@
                 <div class="row" fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px grid">
                     <mat-form-field appearance="fill" fxFlex="33.33%">
                         <mat-label>วันเกิด</mat-label>
-                        <input matInput [matDatepicker]="picker" (click)="picker.open()" formControlName="birth_date" (dateChange)="CalAge(form.controls['birth_date'].value)" (keydown)="false" required>
+                        <input matInput [matDatepicker]="picker" (click)="picker.open()"  formControlName="birth_date" (dateChange)="CalAge(form.controls['birth_date'].value)" (keydown)="false" required>
                         <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
                         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-datepicker #picker></mat-datepicker>
@@ -105,21 +105,21 @@
                     <div class="row" fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px grid">
                         <mat-form-field fxFlex="33.33%"> 
                             <mat-label>ตำบล/แขวง</mat-label>
-                            <mat-select formControlName="tam_id" (valueChange)="TambonChange($event)" required>
-                                <mat-option *ngFor="let i of tambon" [value]="i.tumId" >  {{i.tumName}} </mat-option>
+                            <mat-select formControlName="tum_id" (valueChange)="TumbonChange($event)" required>
+                                <mat-option *ngFor="let i of tumbon" [value]="i.tumId" >  {{i.tumName}} </mat-option>
                             </mat-select>
-                            <mat-error *ngIf="form.controls['tam_id'].hasError('required')">กรุณาเลือกตำบล/แขวง</mat-error>
+                            <mat-error *ngIf="form.controls['tum_id'].hasError('required')">กรุณาเลือกตำบล/แขวง</mat-error>
                         </mat-form-field>
                         <mat-form-field fxFlex="33.33%"> 
                             <mat-label>รหัสไปรษณีย์</mat-label>
                             <mat-select formControlName="zip_code" required>
                                 <mat-option *ngFor="let i of zip_code" [value]="i.zipCode" >  {{i.zipCode}} </mat-option>
                             </mat-select>
-                            <mat-error *ngIf="form.controls['tam_id'].hasError('required')">กรุณารหัสไปรษณีย์</mat-error>
+                            <mat-error *ngIf="form.controls['zip_code'].hasError('required')">กรุณารหัสไปรษณีย์</mat-error>
                         </mat-form-field>
                         <mat-form-field fxFlex="33.33%">
                             <mat-label>เบอร์โทรศัพท์(มือถือ)</mat-label>
-                            <input matInput type="text" formControlName="tel" mask="000-000-0000" maxlength="15" placeholder="กรุณาระบุเบอร์โทรศัพท์" required>
+                            <input matInput type="text" formControlName="tel" mask="000-000-0000" [dropSpecialCharacters]="true" maxlength="15" placeholder="กรุณาระบุเบอร์โทรศัพท์" required>
                             <mat-error *ngIf="form.controls['tel'].hasError('required')" >กรุณาระบุเบอร์โทรศัพท์</mat-error>
                         </mat-form-field>
                     </div>
@@ -156,5 +156,5 @@
       
 </form>
 <div class="row">
-    <app-member-list [titlename]="titlename" ></app-member-list>
+    <app-member-list [titlename]="titlename" (EditData)="EditData($event)"></app-member-list>
  </div>

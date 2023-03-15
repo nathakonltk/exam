@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { bootstrapApplication, BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -15,7 +15,19 @@ import { MemDialogComponent } from './member/mem-dialog/mem-dialog.component';
 import { MemberListComponent } from './member/member-list/member-list.component';
 import { NgxScrollTopModule } from 'ngx-scrolltop';
 import { LoadingDialogComponent } from './shared/loading-dialog/loading-dialog.component';
+// import { IConfig,provideNgxMask,NgxMaskDirective, NgxMaskPipe, provideEnvironmentNgxMask } from 'ngx-mask'
+import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
+// const maskConfigFunction: () => Partial<IConfig> = () => {
+//   return {
+//     validation: false,
+//     dropSpecialCharacters: false,
+//     thousandSeparator: ","
+//   };
+// };
 
+// bootstrapApplication(AppComponent, {
+//   providers:[provideEnvironmentNgxMask(maskConfigFunction)]
+// }).catch((err) => console.error(err));
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,9 +47,10 @@ import { LoadingDialogComponent } from './shared/loading-dialog/loading-dialog.c
     BrowserAnimationsModule,
     HttpClientModule,
     MaterialModule,
-    NgxScrollTopModule,
+    NgxScrollTopModule, 
+    NgxMaskDirective, NgxMaskPipe
   ],
-  providers: [],
+  providers: [provideNgxMask()],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

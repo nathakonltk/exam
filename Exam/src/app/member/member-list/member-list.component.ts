@@ -1,24 +1,28 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, Input } from '@angular/core';
+import { Component, Input,EventEmitter,Output } from '@angular/core';
 import { map, retry } from 'rxjs';
-import { ProvAmpTamService,MemberService } from '../../_services/index';
+import { ProvAmpTumService,MemberService } from '../../_services/index';
 import { MemberJoin, TitleName,Province} from './../../_models/index';
+import { MemDialogComponent } from './../mem-dialog/mem-dialog.component';
 import { Observable } from "rxjs"
 import Swal from 'sweetalert2';
+import { MatDialog } from '@angular/material/dialog';
 @Component({
   selector: 'app-member-list',
   templateUrl: './member-list.component.html',
-  styleUrls: ['./member-list.component.scss']
+  styleUrls: ['./member-list.component.scss'],
 })
 export class MemberListComponent {
   @Input() titlename!:any;
+  @Output() EditData = new EventEmitter<MemberJoin[]>();
   memberModel:MemberJoin[]=[];
   public  province: Province[]=[];
   // displayedColumns: string[] = ['mem_id', 'first_name', 'nationality', 'tel'];
   displayedColumns: string[] = ['memId','fullname', 'nationality','address','tel','email','edit','delete'];
   constructor(
     private memberService:MemberService,
-    private  provAmpTamService:ProvAmpTamService
+    private  provAmpTumService:ProvAmpTumService,
+    private dialog: MatDialog,
     ){
 
   }
@@ -30,7 +34,7 @@ export class MemberListComponent {
       title: 'คุณต้องการลบข้อมูล '+this.titlename[element.titleId]+element.firstName + ' ' + element.lastName +' ?',
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#4e88be',
+      confirmButtonColor: '##7b1fa2',
       confirmButtonText: 'ยืนยัน',
       cancelButtonText: 'ยกเลิก'
     }).then((result) => {
@@ -50,8 +54,8 @@ export class MemberListComponent {
       }
     })
   }
-  EditRow(MemId:string){
-    console.log(MemId);
+  EditRow(element: any){
+    this.EditData.emit(element);
   }
   MemberGetAll(){    
     this.memberService.GetAll().subscribe((res: any) => {

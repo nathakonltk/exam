@@ -63,10 +63,10 @@ public partial class ExamContext : DbContext
                 .HasMaxLength(2)
                 .IsUnicode(false)
                 .HasColumnName("prov_id");
-            entity.Property(e => e.TamId)
+            entity.Property(e => e.TumId)
                 .HasMaxLength(6)
                 .IsUnicode(false)
-                .HasColumnName("tam_id");
+                .HasColumnName("tum_id");
             entity.Property(e => e.Tel)
                 .HasMaxLength(10)
                 .IsUnicode(false)

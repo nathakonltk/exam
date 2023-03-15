@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders , HttpParams,HttpErrorResponse } from '@angular/common/http';
 import { map, Observable,tap,catchError,of,throwError  } from 'rxjs';
-import { Tambon,Province,Amphure,ZipCode} from './../_models/index';
+import { Tumbon,Province,Amphure,ZipCode} from '../_models/index';
 import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ProvAmpTamService {
+export class ProvAmpTumService {
 
   constructor(
     private http: HttpClient,
@@ -39,7 +39,7 @@ export class ProvAmpTamService {
 
 
   AmpGetProvId(ProvId:string): Observable<Amphure[]> {
-    console.log("AmpGetProvId:",`${environment.apiUrl}/PADZ/AmpGetProvId/`+ProvId);
+    //console.log("AmpGetProvId:",`${environment.apiUrl}/PADZ/AmpGetProvId/`+ProvId);
     return this.http.get<Amphure[]>(`${environment.apiUrl}/PADZ/AmpGetProvId/`+ProvId);
   }
   AmpGetAmpId(AmpId:string): Observable<Amphure[]> {
@@ -48,11 +48,11 @@ export class ProvAmpTamService {
   }
 
 
-  TumbGetAmpId(AmpId:string): Observable<Tambon[]> {
-    return this.http.get<Tambon[]>(`${environment.apiUrl}/PADZ/TumbGetAmpId/`+AmpId)
+  TumbGetAmpId(AmpId:string): Observable<Tumbon[]> {
+    return this.http.get<Tumbon[]>(`${environment.apiUrl}/PADZ/TumbGetAmpId/`+AmpId)
   }
-  TumbGetTumId(TumId:string): Observable<Tambon[]> {
-    return this.http.get<Tambon[]>(`${environment.apiUrl}/PADZ/TumbGetTumId/`+TumId)
+  TumbGetTumId(TumId:string): Observable<Tumbon[]> {
+    return this.http.get<Tumbon[]>(`${environment.apiUrl}/PADZ/TumbGetTumId/`+TumId)
   }
 
 

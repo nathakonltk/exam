@@ -1,3 +1,3 @@
-export * from './prov-amp-tam.service';
+export * from './prov-amp-tum.service';
 export * from './uploadfile.service';
 export * from './member.service';
