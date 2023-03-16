@@ -107,7 +107,7 @@ public class MemberController : ControllerBase
       }
     }
 
-
+    
 
      [HttpPost("Insert")]
     public ActionResult Insert([FromBody] Member member){
@@ -128,12 +128,13 @@ public class MemberController : ControllerBase
           res.Tel=member.Tel;
           res.Email=member.Email;
           res.Imgfile=member.Imgfile;
-        
-        }else{
-          //this.con_db.Members.Add(member);
           
+          
+        }else{
+          this.con_db.Members.Add(member);
         }
-        this.con_db.SaveChanges();
+          this.con_db.SaveChanges();
+      
         _status = true;
         _message = "บันทึกข้อมูลสำเร็จ";
        return StatusCode(200, new { status = _status, message = _message, error = _error, results = member });

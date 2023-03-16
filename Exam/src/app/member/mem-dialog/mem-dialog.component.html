@@ -33,6 +33,7 @@
                 <div class="row" fxLayout="row"  fxLayout.xs="column" fxLayoutGap="10px grid"  >
                     
                     <mat-form-field  fxFlex="33.33%" >
+                        <input type="hidden" formControlName="imgfile_old" >
                         <input type="hidden" formControlName="mem_id" >
                         <mat-label>คำนำหน้าชื่อ</mat-label>
                         <mat-select formControlName="title_id" ng-repeat="obj in titlename" placeholder="กรุณาเลือก" required>

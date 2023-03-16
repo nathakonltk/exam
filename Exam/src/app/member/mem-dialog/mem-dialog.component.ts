@@ -62,6 +62,7 @@ export class MemDialogComponent {
       tel: ['', [Validators.required]],
       email: ['', [Validators.required,Validators.email]],
       imgfile: this.fb.array([]),
+      imgfile_old:['']
     });
     this.imgfile = this.form.get('imgfile') as FormArray;
   }
@@ -82,12 +83,13 @@ export class MemDialogComponent {
     this.TumbonChange(data.tumId,data.zipCode);
     this.form.get('tel')?.setValue(data.tel);
     this.form.get('email')?.setValue(data.email);
+    this.form.get('imgfile_old')?.setValue(data.imgfile);
     this.avatar=data.imgfile;
     let birthDate = new Date(data.birthDate);
     this.CalAge(birthDate);
   }
-  async save(data:any){
-    //console.log("imgfile:",data.imgfile.value[0]['file']);
+  save(data:any){
+    console.log("imgfile:",data.imgfile.value.length);
     if (!this.form.valid){
       Swal.fire({
         title: 'กรุณากรอกข้อมูลในช่องสีแดง',
@@ -101,22 +103,31 @@ export class MemDialogComponent {
         
       return;
     }
+    let Imgfile="";
+    if(data.imgfile.value.length>0){
+      Imgfile=data.imgfile.value[0]['file'];
+    }else{
+      Imgfile=data.imgfile_old.value;
+    }
+    //let Imgfiles=(data.imgfile.value.length>0 ? data.imgfile.value[0]['file'] : "");
+    console.log("Imgfile:",Imgfile);
+    
     let req = {
       MemId:data.mem_id.value,
       TitleId: data.title_id.value,
       FirstName: data.first_name.value,  
       LastName: data.last_name.value,      
-      // BirthDate: moment(data.birth_date.value).format('YYYY-MM-DD'),
-      // Nationality: data.nationality.value,
+      BirthDate: moment(data.birth_date.value).format('YYYY-MM-DD'),
+      Nationality: data.nationality.value,
 
-      // Address: data.address.value,
-      // TumId: data.tum_id.value,
-      // AmpId: data.amp_id.value,
-      // ProvId: data.prov_id.value,
-      // ZipCode: data.zip_code.value,
-      // Tel: data.tel.value,
-      // Email: data.email.value,
-      // Imgfile: data.imgfile.value[0]['file']
+      Address: data.address.value,
+      TumId: data.tum_id.value,
+      AmpId: data.amp_id.value,
+      ProvId: data.prov_id.value,
+      ZipCode: data.zip_code.value,
+      Tel: data.tel.value,
+      Email: data.email.value,
+      Imgfile: Imgfile
 
     }
    // console.log("title_id:",req.BirthDate);
