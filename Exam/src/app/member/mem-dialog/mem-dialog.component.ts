@@ -82,33 +82,12 @@ export class MemDialogComponent {
     this.TumbonChange(data.tumId,data.zipCode);
     this.form.get('tel')?.setValue(data.tel);
     this.form.get('email')?.setValue(data.email);
-    this.form.get('imgfile')?.setValue(data.imgfile);
+    this.avatar=data.imgfile;
     let birthDate = new Date(data.birthDate);
     this.CalAge(birthDate);
   }
-  save(data:any){
-    
-    
-    let req = {
-      MemId:data.mem_id.value,
-      TitleId: data.title_id.value,
-      FirstName: data.first_name.value,  
-      LastName: data.last_name.value,      
-      BirthDate: moment(data.first_name.value).format('YYYY-MM-DD'),
-      Nationality: data.nationality.value,
-
-      Address: data.address.value,
-      TumId: data.tum_id.value,
-      AmpId: data.amp_id.value,
-      ProvId: data.prov_id.value,
-      ZipCode: data.zip_code.value,
-      Tel: data.tel.value,
-      Email: data.email.value,
-      Imgfile: data.imgfile.value
-
-    }
-    console.log("title_id:",req.BirthDate);
-    console.log(req);
+  async save(data:any){
+    //console.log("imgfile:",data.imgfile.value[0]['file']);
     if (!this.form.valid){
       Swal.fire({
         title: 'กรุณากรอกข้อมูลในช่องสีแดง',
@@ -122,6 +101,27 @@ export class MemDialogComponent {
         
       return;
     }
+    let req = {
+      MemId:data.mem_id.value,
+      TitleId: data.title_id.value,
+      FirstName: data.first_name.value,  
+      LastName: data.last_name.value,      
+      // BirthDate: moment(data.birth_date.value).format('YYYY-MM-DD'),
+      // Nationality: data.nationality.value,
+
+      // Address: data.address.value,
+      // TumId: data.tum_id.value,
+      // AmpId: data.amp_id.value,
+      // ProvId: data.prov_id.value,
+      // ZipCode: data.zip_code.value,
+      // Tel: data.tel.value,
+      // Email: data.email.value,
+      // Imgfile: data.imgfile.value[0]['file']
+
+    }
+   // console.log("title_id:",req.BirthDate);
+    console.log(req);
+   
     Swal.fire({
       title: 'คุณยืนยันการบันทึกข้อมูล ' + this.titlename[req.TitleId]+ req.FirstName + ' ' + req.FirstName + ' ?',
       icon: 'question',

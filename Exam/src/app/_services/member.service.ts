@@ -18,6 +18,7 @@ export class MemberService {
     }));
   }
   Insert(data: any) {
+    console.log('data:',data);
     return this.http.post(`${environment.apiUrl}/Member/Insert`, data).pipe(map(res => {
       return res
     }))
