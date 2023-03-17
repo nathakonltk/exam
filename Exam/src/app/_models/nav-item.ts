@@ -1,15 +1,33 @@
-export interface NavItem {
-  menu_code?: string;
-  menu_ref_code?: string;
-  menu_icon?: string;
-  menu_level?: string;
-  menu_name_th?: string;
-  menu_name_en?: string;
-  menu_position?: string;
-  menu_route?: string;
-  displayName: string;
-  disabled?: boolean;
-  iconName: string;
-  route?: string;
-  children?: NavItem[];
+export class NavItem {
+  public navItems= [
+
+    {
+      displayName: 'หน้าหลัก',
+      disabled: true,
+      iconName: 'home',
+      route: '/admin',
+      children: [
+        
+      ]
+    },
+    {
+      displayName: 'จัดการข้อมูลสมาชิก',
+      disabled: true,
+      iconName: 'perm_identity',
+      route: '/member',
+      children: [
+        
+      ]
+    },
+    {
+      displayName: 'จัดการข้อมูลสมาชิกtt',
+      disabled: true,
+      iconName: 'perm_identity',
+      route: '/membertt',
+      children: [
+        
+      ]
+    },
+    
+  ];
 }

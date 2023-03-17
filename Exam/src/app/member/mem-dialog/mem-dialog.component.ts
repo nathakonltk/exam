@@ -62,12 +62,15 @@ export class MemDialogComponent {
       tel: ['', [Validators.required]],
       email: ['', [Validators.required,Validators.email]],
       imgfile: this.fb.array([]),
-      imgfile_old:['']
+      imgfile_old:[''],
+      file:['']
     });
     this.imgfile = this.form.get('imgfile') as FormArray;
   }
   EditData(data:any){
-    console.log("data:"+data.titleId+":titleId");
+    
+    console.log("data:",data);
+    this.form.reset();
     this.form.get('mem_id')?.setValue(data.memId);
     this.form.get('title_id')?.setValue(Number(data.titleId));
     this.form.get('first_name')?.setValue(data.firstName);
@@ -87,6 +90,7 @@ export class MemDialogComponent {
     this.avatar=data.imgfile;
     let birthDate = new Date(data.birthDate);
     this.CalAge(birthDate);
+    console.log("ff:",this.form.get('file')?.value);
   }
   save(data:any){
     console.log("imgfile:",data.imgfile.value.length);
@@ -109,12 +113,13 @@ export class MemDialogComponent {
     }else{
       Imgfile=data.imgfile_old.value;
     }
-    //let Imgfiles=(data.imgfile.value.length>0 ? data.imgfile.value[0]['file'] : "");
+    //console.log("valueImgfile:",data.imgfile.value[0]['file']);
     console.log("Imgfile:",Imgfile);
+    console.log("file:",data.file.value);
     
     let req = {
       MemId:data.mem_id.value,
-      TitleId: data.title_id.value,
+      TitleId: String( data.title_id.value),
       FirstName: data.first_name.value,  
       LastName: data.last_name.value,      
       BirthDate: moment(data.birth_date.value).format('YYYY-MM-DD'),
@@ -131,10 +136,10 @@ export class MemDialogComponent {
 
     }
    // console.log("title_id:",req.BirthDate);
-    console.log(req);
-   
+    console.log("req:",req);
+   //return;
     Swal.fire({
-      title: 'คุณยืนยันการบันทึกข้อมูล ' + this.titlename[req.TitleId]+ req.FirstName + ' ' + req.FirstName + ' ?',
+      title: 'คุณยืนยันการบันทึกข้อมูล ' + this.titlename[data.title_id.value]+ req.FirstName + ' ' + req.FirstName + ' ?',
       icon: 'question',
       showCancelButton: true,
       confirmButtonColor: '#7b1fa2',
@@ -194,6 +199,20 @@ export class MemDialogComponent {
 
   }
   
+  // onFileUpload(files:any){
+  //   // this.selecetdFile = event.target.files[0];
+  //   const reader = new FileReader();
+  //   reader.onload = () => {
+  //   this.imagePreview = reader.result;
+  //   };
+  //   reader.readAsDataURL(this.selecetdFile);
+  // }
+  // OnUploadFile(files:any,MemId:string) {
+  //   //Upload file here send a Form data
+  //   const uploadFormData = new FormData();
+  //   uploadFormData.append(MemId, this.selectedFile, this.selectedFile.name);
+  //   this.http.post('yourdomain.com/file-upload', uploadFormData)
+  //   }
   
   createFile(item: UploadFile): FormGroup {
     return this.fb.group({
@@ -218,7 +237,9 @@ export class MemDialogComponent {
   ProvChange(province_id:string,val?:string){
     console.log(province_id);
     this.getAmphure(province_id);
-    this.form.get('amp_id')?.setValue(val);
+    if(val){      
+      this.form.get('amp_id')?.setValue(val);
+    }
   }
   AmpChange(amphure_id:string,val?:string){
     this.getTumbon(amphure_id);

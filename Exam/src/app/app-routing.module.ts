@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule,OnInit } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MemDialogComponent } from './member/mem-dialog/mem-dialog.component';
 const routes: Routes = [
@@ -6,6 +6,13 @@ const routes: Routes = [
     path:'member',
     data:{breadcrumb:'จัดการข้อมูลสมาชิก'},
     component: MemDialogComponent,
+    
+  },
+  {
+    path:'membertt',
+    data:{breadcrumb:'จัดการข้อมูลสมาชิก'},
+    component: MemDialogComponent,
+    
   }
   // {
   //   path: '**',
@@ -17,4 +24,5 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}

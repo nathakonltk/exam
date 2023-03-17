@@ -17,7 +17,7 @@
                     <mat-card-actions>
                         <div class="example-button-row" fxFlex="100%">
                             <button mat-flat-button color="primary" fxFlex="100%" type="button" (click)="file.click()">อัพโหลดรูป</button>
-                            <input mat-raised-button #file type="file" accept="image/x-png,image/gif,image/jpeg" (change)="uploadImage($event)" fxHide>
+                            <input mat-raised-button #file formControlName="file" type="file" accept="image/x-png,image/gif,image/jpeg" (change)="uploadImage($event)" fxHide>
                             <!-- <button mat-fab extended color="primary" fxFlex="100%">  อัพโหลดรูป</button> -->
                         </div>
                         <div fxLayout="row" fxLayoutAlign="center center" >

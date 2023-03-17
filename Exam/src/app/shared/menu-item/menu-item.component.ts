@@ -1,6 +1,6 @@
 //import { BreadcrumbComponent } from './../breadcrumb/breadcrumb.component';
 import { Component, Input, HostBinding, Output, EventEmitter } from '@angular/core';
-import { NavItem } from 'src/app/_models/index';
+//import { NavItem } from 'src/app/_models/index';
 import { Router } from '@angular/router';
 @Component({
   selector: 'app-menu-item',
@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 export class MenuItemComponent {
   expanded: boolean = false;
   @HostBinding('attr.aria-expanded') ariaExpanded = this.expanded;
-  @Input() item!: NavItem;
+  @Input() item: any;
   @Input() depth!: number;
   @Output() breadcrumdChange = new EventEmitter<string>();
   constructor(
@@ -25,7 +25,7 @@ export class MenuItemComponent {
   ngOnInit(): void {
   }
   
-  onItemSelected(item: NavItem) {
+  onItemSelected(item: any) {
     if (!item.children || !item.children.length) {
       this.router.navigate([item.route]);
       this.breadcrumdChange.emit(item.displayName);

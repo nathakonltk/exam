@@ -30,8 +30,8 @@ export class ProvAmpTumService {
 
   //public _provinces:Province[]=this.getProvince();
   
-  ProvGetAll(): Observable<Province[]> {
-    return this.http.get<Province[]>(`${environment.apiUrl}/PADZ/Prov/GetAll`)
+  ProvGetAll(): any {
+    return this.http.get(`${environment.apiUrl}/PADZ/Prov/GetAll`);
   }
   ProvGetId(id:string): Observable<Province[]> {
     return this.http.get<Province[]>(`${environment.apiUrl}/PADZ/ProvGetId/`+id)
