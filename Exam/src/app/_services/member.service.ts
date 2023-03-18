@@ -12,7 +12,7 @@ export class MemberService {
   constructor(
     private http: HttpClient,
   ) { }
-  GetAll():  Observable<MemberJoin[]>{
+  GetAll():  any{
     return this.http.get<MemberJoin[]>(`${environment.apiUrl}/Member/GetAll`).pipe(map((res: any) => {
       return res;
     }));
@@ -20,6 +20,8 @@ export class MemberService {
   Insert(data: any) {
     console.log('data:',data);
     return this.http.post(`${environment.apiUrl}/Member/Insert`, data).pipe(map(res => {
+      
+      console.log('Insert:',res);
       return res
     }))
   }

@@ -13,6 +13,7 @@ export interface MemberModel {
   tel: string;
   email: string;
   imgfile: string;
+  savedate: string;
 }
 export interface MemberJoin {
   memId: string;
@@ -32,4 +33,5 @@ export interface MemberJoin {
   tel: string;
   email: string;
   imgfile: string;
+  savedate: string;
 }

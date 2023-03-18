@@ -79,6 +79,10 @@ public partial class ExamContext : DbContext
                 .HasMaxLength(5)
                 .IsUnicode(false)
                 .HasColumnName("zip_code");
+             entity.Property(e => e.SaveDate)
+                .HasMaxLength(5)
+                .IsUnicode(false)
+                .HasColumnName("save_date");
         });
 
         modelBuilder.Entity<TblAmphur>(entity =>

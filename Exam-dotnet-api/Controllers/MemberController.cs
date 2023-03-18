@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Exam_dotnet_api.Models;
+using Microsoft.Data.SqlClient;
 
 namespace Exam_dotnet_api.Controllers;
 
@@ -46,7 +47,8 @@ public class MemberController : ControllerBase
                           ZipCode=m.ZipCode,
                           Tel=m.Tel,
                           Email=m.Email,
-                          Imgfile=m.Imgfile
+                          Imgfile=m.Imgfile,
+                          SaveDate=m.SaveDate
                         }
 
                     ).ToList();
@@ -110,9 +112,26 @@ public class MemberController : ControllerBase
     
 
      [HttpPost("Insert")]
-    public ActionResult Insert([FromBody] Member member){
+    public ActionResult Insert([FromBody] Member member){      
+      
+      
       try{
-        var res=this.con_db.Members.FirstOrDefault(i=>i.MemId==member.MemId);
+        var condb=this.con_db;
+        string y= (DateTime.Now.Year+543).ToString();
+        if(string.IsNullOrEmpty(member.MemId)){
+          var maxId=  condb.Members.Where(i => i.MemId.Contains(y) ).Max(x => x.MemId);
+          var NewId="";
+            if(string.IsNullOrEmpty(maxId)){
+              NewId=y+"001";
+            }else{
+              var runId=(int.Parse((maxId.Substring(5).Replace("0", "")))+1).ToString().PadLeft(3,'0');
+              NewId=y+runId;
+            }
+            member.MemId=NewId;
+        
+
+        }
+        var res=condb.Members.FirstOrDefault(i=>i.MemId==member.MemId);
         if(res!=null){
           res.MemId=member.MemId;
           res.TitleId=member.TitleId;
@@ -128,12 +147,13 @@ public class MemberController : ControllerBase
           res.Tel=member.Tel;
           res.Email=member.Email;
           res.Imgfile=member.Imgfile;
+          res.SaveDate=member.SaveDate;
           
           
         }else{
-          this.con_db.Members.Add(member);
+          condb.Members.Add(member);
         }
-          this.con_db.SaveChanges();
+          condb.SaveChanges();
       
         _status = true;
         _message = "บันทึกข้อมูลสำเร็จ";

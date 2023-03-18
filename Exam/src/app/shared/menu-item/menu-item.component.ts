@@ -12,7 +12,6 @@ export class MenuItemComponent {
   @HostBinding('attr.aria-expanded') ariaExpanded = this.expanded;
   @Input() item: any;
   @Input() depth!: number;
-  @Output() breadcrumdChange = new EventEmitter<string>();
   constructor(
     public router: Router
 
@@ -28,8 +27,6 @@ export class MenuItemComponent {
   onItemSelected(item: any) {
     if (!item.children || !item.children.length) {
       this.router.navigate([item.route]);
-      this.breadcrumdChange.emit(item.displayName);
-      //console.log(item.children);
     }
     if (item.children && item.children.length) {
       this.expanded = !this.expanded;

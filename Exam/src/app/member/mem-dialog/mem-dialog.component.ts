@@ -1,5 +1,5 @@
 import { TitleName,MemberModel,MemberJoin,Tumbon,Province,Amphure,ZipCode,UploadFile } from './../../_models/index';
-import { Component, OnInit,Inject,Output,EventEmitter } from '@angular/core';
+import { Component, OnInit,Inject,Output,ViewChild  } from '@angular/core';
 import { FormBuilder, FormGroup ,FormControl, Validators,FormArray} from '@angular/forms';
 import { DateAdapter } from '@angular/material/core';
 import { ProvAmpTumService,UploadfileService,MemberService } from '../../_services/index';
@@ -9,6 +9,7 @@ import { HttpClient } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import Swal from 'sweetalert2';
 import * as moment from 'moment';
+import {MemberListComponent} from '../member-list/member-list.component'
 
 
 @Component({
@@ -19,7 +20,7 @@ import * as moment from 'moment';
 })
 
 export class MemDialogComponent { 
-  //@Output() dateInput(): EventEmitter;
+  @ViewChild(MemberListComponent, { static: false }) MemList! : MemberListComponent;
   DateNew = new Date(); 
   form: FormGroup;
   imgfile: FormArray;
@@ -43,7 +44,6 @@ export class MemDialogComponent {
     // @Inject(MAT_DIALOG_DATA) public data: any,
     // public dialogRef: MatDialogRef<MemDialogComponent>,
   ){
-    //this.DateNew = this.datePipe.transform(this.DateNew, 'yyyy-MM-dd');
     this.dateAdapter.setLocale('th-TH'); //dd/MM/yyyy
     this.form = this.fb.group({
       mem_id: [''],
@@ -113,6 +113,12 @@ export class MemDialogComponent {
     }else{
       Imgfile=data.imgfile_old.value;
     }
+    let MemId="";
+    if(data.mem_id.value){
+      MemId=data.mem_id.value;
+    }else{
+      MemId=data.mem_id.value;
+    }
     //console.log("valueImgfile:",data.imgfile.value[0]['file']);
     console.log("Imgfile:",Imgfile);
     console.log("file:",data.file.value);
@@ -132,7 +138,8 @@ export class MemDialogComponent {
       ZipCode: data.zip_code.value,
       Tel: data.tel.value,
       Email: data.email.value,
-      Imgfile: Imgfile
+      Imgfile: Imgfile,
+      savedate:this.datePipe.transform(this.DateNew, 'yyyy-MM-dd')
 
     }
    // console.log("title_id:",req.BirthDate);
@@ -163,6 +170,8 @@ export class MemDialogComponent {
               allowOutsideClick: false,
               timer: 3000
             }).then(() => {
+              this.MemList.MemberGetAll();
+              this.form.reset();
               Swal.close();
             })
           } else {
@@ -181,13 +190,10 @@ export class MemDialogComponent {
   ngOnInit() {
     this.form.markAllAsTouched();
     this.getProvince();
-    this.GetAll();
+    
   }
-  GetAll(){    
-    this.memberService.GetAll().subscribe(res => {
-      console.log(res);
-    })
-  }
+  
+  
   CalAge(birth_date?:Date){
 
     if(!birth_date){
@@ -237,6 +243,9 @@ export class MemDialogComponent {
   ProvChange(province_id:string,val?:string){
     console.log(province_id);
     this.getAmphure(province_id);
+    this.form.get('amp_id')?.reset();
+    this.form.get('tum_id')?.reset();
+    this.form.markAllAsTouched();
     if(val){      
       this.form.get('amp_id')?.setValue(val);
     }
