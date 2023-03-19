@@ -26,8 +26,8 @@ body {
     }
 }
 .color-edit {
-  --mdc-protected-button-container-color: #FF8F00 !important;
-  --mdc-protected-button-label-text-color: #fff !important;
+  background: #FF8F00 !important;
+  --text-color: #fff !important;
 }
 .text-center{
   text-align: center !important;
