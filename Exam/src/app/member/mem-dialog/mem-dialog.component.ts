@@ -166,6 +166,7 @@ export class MemDialogComponent {
             }).then(() => {
               this.MemList.MemberGetAll();
               this.form.reset();
+              this.avatar="";
               Swal.close();
             })
           } else {

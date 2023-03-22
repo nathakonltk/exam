@@ -1,0 +1,38 @@
+{
+  "Version": 1.0,
+  "General": {
+    "BackupComponents": "Full",
+    "BackupSetName": "exam22-03-2023Backup",
+    "BackupType": "Full",
+    "CheckMediaNameAndExpiry": false,
+    "CompressionType": "Default",
+    "ContinueOnError": false,
+    "Description": "",
+    "DevicesForNewMediaSet": [
+      {
+        "LogicalName": "",
+        "PhysicalName": "C:\\Program Files\\Microsoft SQL Server\\MSSQL16.SQLEXPRESS\\MSSQL\\Backup\\exam.bak"
+      }
+    ],
+    "ExpireDate": "3/22/2023",
+    "ExpireType": "NoExpiryDate",
+    "FileGroups": [
+      "PRIMARY"
+    ],
+    "Files": [],
+    "FormatMedia": false,
+    "InitMedia": false,
+    "IsCopyOnly": false,
+    "IsUseMediaPassword": false,
+    "IsUsePassword": false,
+    "MediaDescription": "",
+    "MediaName": "",
+    "MediaNameForCheck": "",
+    "MediaSetID": 0,
+    "NewMediaSetType": "New",
+    "PerformChecksum": false,
+    "RetainDays": 1,
+    "TransactionLogType": "Truncate",
+    "VerifyBackup": false
+  }
+}

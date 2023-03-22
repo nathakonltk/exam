@@ -17,6 +17,7 @@ import { NgxScrollTopModule } from 'ngx-scrolltop';
 import { LoadingDialogComponent } from './shared/loading-dialog/loading-dialog.component';
 // import { IConfig,provideNgxMask,NgxMaskDirective, NgxMaskPipe, provideEnvironmentNgxMask } from 'ngx-mask'
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
+import { ResumeComponent } from './owner/resume/resume.component';
 // const maskConfigFunction: () => Partial<IConfig> = () => {
 //   return {
 //     validation: false,
@@ -39,6 +40,7 @@ import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
     MemDialogComponent,
     MemberListComponent,
     LoadingDialogComponent,
+    ResumeComponent,
     
   ],
   imports: [
