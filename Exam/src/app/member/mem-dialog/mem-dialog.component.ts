@@ -113,12 +113,6 @@ export class MemDialogComponent {
     }else{
       Imgfile=data.imgfile_old.value;
     }
-    let MemId="";
-    if(data.mem_id.value){
-      MemId=data.mem_id.value;
-    }else{
-      MemId=data.mem_id.value;
-    }
     //console.log("valueImgfile:",data.imgfile.value[0]['file']);
     console.log("Imgfile:",Imgfile);
     console.log("file:",data.file.value);
@@ -204,21 +198,6 @@ export class MemDialogComponent {
       console.log("showAge:"+this.showAge);
 
   }
-  
-  // onFileUpload(files:any){
-  //   // this.selecetdFile = event.target.files[0];
-  //   const reader = new FileReader();
-  //   reader.onload = () => {
-  //   this.imagePreview = reader.result;
-  //   };
-  //   reader.readAsDataURL(this.selecetdFile);
-  // }
-  // OnUploadFile(files:any,MemId:string) {
-  //   //Upload file here send a Form data
-  //   const uploadFormData = new FormData();
-  //   uploadFormData.append(MemId, this.selectedFile, this.selectedFile.name);
-  //   this.http.post('yourdomain.com/file-upload', uploadFormData)
-  //   }
   
   createFile(item: UploadFile): FormGroup {
     return this.fb.group({

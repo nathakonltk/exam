@@ -15,7 +15,6 @@ export class BreadcrumbComponent  {
   event$ 
   constructor(
     private router: Router,
-    private activatedRoute: ActivatedRoute,
     // private avItem:NavItem,
     ) {
     let url="";

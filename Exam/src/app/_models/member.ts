@@ -23,7 +23,7 @@ export interface MemberJoin {
   birthDate: string;
   nationality: string;
   address: string;
-  tamId: string;
+  tumId: string;
   tumName: string;
   ampId: string;
   ampName: string;
