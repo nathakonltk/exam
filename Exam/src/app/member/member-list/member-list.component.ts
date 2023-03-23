@@ -34,7 +34,7 @@ export class MemberListComponent {
       title: 'คุณต้องการลบข้อมูล '+this.titlename[element.titleId]+element.firstName + ' ' + element.lastName +' ?',
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '##7b1fa2',
+      confirmButtonColor: '#7b1fa2',
       confirmButtonText: 'ยืนยัน',
       cancelButtonText: 'ยกเลิก'
     }).then((result) => {
@@ -57,13 +57,34 @@ export class MemberListComponent {
   EditRow(element: any){
     this.EditData.emit(element);
   }
-  MemberGetAll(){    
-    this.memberService.GetAll().subscribe((res: any) => {
-      if (res != null && res.status == true) {
-        this.memberModel=res.results;
-        console.log('memberModel',this.memberModel);
+  MemberGetAll(){  
+    
+    //Swal.showLoading()  
+    Swal.fire({
+      title: 'กำลังโหลด...',
+      allowEscapeKey: false,
+      allowOutsideClick: false,
+      background: '#fff',
+      showConfirmButton: false,
+      onOpen: ()=>{
+          Swal.showLoading();
+          this.memberService.GetAll().subscribe((res: any) => {
+            if (res != null && res.status == true) {
+              this.memberModel=res.results;
+              
+              Swal.close()
+              console.log('memberModel',this.memberModel);
+              
+            }
+          })
       }
-    })
+
+      // timer: 3000,
+      // timerProgressBar: true
+    }).then(()=>{
+      
+      
+    });
   }
 }
 

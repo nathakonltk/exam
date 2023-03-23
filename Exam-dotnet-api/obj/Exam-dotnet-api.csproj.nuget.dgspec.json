@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Programing_Training\\Angular\\ecounter_angular\\exam\\Exam-dotnet-api\\Exam-dotnet-api.csproj": {}
+    "C:\\programing\\GitHub\\training\\angular\\exam\\Exam-dotnet-api\\Exam-dotnet-api.csproj": {}
   },
   "projects": {
-    "C:\\Programing_Training\\Angular\\ecounter_angular\\exam\\Exam-dotnet-api\\Exam-dotnet-api.csproj": {
+    "C:\\programing\\GitHub\\training\\angular\\exam\\Exam-dotnet-api\\Exam-dotnet-api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Programing_Training\\Angular\\ecounter_angular\\exam\\Exam-dotnet-api\\Exam-dotnet-api.csproj",
+        "projectUniqueName": "C:\\programing\\GitHub\\training\\angular\\exam\\Exam-dotnet-api\\Exam-dotnet-api.csproj",
         "projectName": "Exam-dotnet-api",
-        "projectPath": "C:\\Programing_Training\\Angular\\ecounter_angular\\exam\\Exam-dotnet-api\\Exam-dotnet-api.csproj",
-        "packagesPath": "C:\\Users\\TOP-PC\\.nuget\\packages\\",
-        "outputPath": "C:\\Programing_Training\\Angular\\ecounter_angular\\exam\\Exam-dotnet-api\\obj\\",
+        "projectPath": "C:\\programing\\GitHub\\training\\angular\\exam\\Exam-dotnet-api\\Exam-dotnet-api.csproj",
+        "packagesPath": "C:\\Users\\66612\\.nuget\\packages\\",
+        "outputPath": "C:\\programing\\GitHub\\training\\angular\\exam\\Exam-dotnet-api\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\TOP-PC\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\66612\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
